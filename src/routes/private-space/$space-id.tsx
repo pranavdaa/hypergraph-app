@@ -1,5 +1,5 @@
 import { Button } from '@/components/ui/button';
-import { Project } from '@/schema';
+import { Project, Task } from '@/schema';
 import {
   HypergraphSpaceProvider,
   useCreateEntity,
@@ -28,14 +28,20 @@ function RouteComponent() {
 function PrivateSpace() {
   const { name, ready, id: spaceId } = useSpace({ mode: 'private' });
   const { data: projects } = useQuery(Project, { mode: 'private' });
+  const { data: tasks } = useQuery(Task, { mode: 'private' });
   const { data: publicSpaces } = useSpaces({ mode: 'public' });
   const [selectedSpace, setSelectedSpace] = useState<string>('');
+
   const createProject = useCreateEntity(Project);
+  const createTask = useCreateEntity(Task);
   const [projectName, setProjectName] = useState('');
   const [projectDescription, setProjectDescription] = useState('');
+  const [taskName, setTaskName] = useState('');
+  const [taskDescription, setTaskDescription] = useState('');
+  const [taskStatus, setTaskStatus] = useState(false);
   const { mutate: publishToPublicSpace, isPending } = usePublishToPublicSpace({
-    onSuccess: () => alert('Project published to your public space'),
-    onError: () => alert('Error publishing project to your public space'),
+    onSuccess: () => alert('Entity published to your public space'),
+    onError: () => alert('Error publishing entity to your public space'),
   });
 
   if (!ready) {
@@ -49,11 +55,19 @@ function PrivateSpace() {
     );
   }
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleProjectSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    createProject({ name: projectName, description: projectDescription });
+    createProject({ name: projectName, description: projectDescription, x: '' });
     setProjectName('');
     setProjectDescription('');
+  };
+
+  const handleTaskSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    createTask({ name: taskName, description: taskDescription, status: taskStatus });
+    setTaskName('');
+    setTaskDescription('');
+    setTaskStatus(false);
   };
 
   return (
@@ -64,7 +78,9 @@ function PrivateSpace() {
           <p className="text-slate-600 mt-1 text-sm">Private Space</p>
           <h1 className="text-3xl font-bold text-slate-900">{name}</h1>
           <p className="text-slate-600 mt-1 text-sm">ID: {spaceId}</p>
-          <p className="text-muted-foreground mt-6">Manage your private projects and publish them to public spaces</p>
+          <p className="text-muted-foreground mt-6">
+            Manage your private projects and tasks, then publish them to public spaces
+          </p>
         </div>
 
         <div className="grid gap-8 lg:grid-cols-2">
@@ -72,7 +88,7 @@ function PrivateSpace() {
           <div className="space-y-6">
             <div className="bg-card border rounded-lg p-6 shadow-sm">
               <h2 className="text-xl font-semibold text-card-foreground mb-4">Create New Project</h2>
-              <form onSubmit={handleSubmit} className="space-y-4">
+              <form onSubmit={handleProjectSubmit} className="space-y-4">
                 <div className="space-y-2">
                   <label htmlFor="project-name" className="text-sm font-medium text-card-foreground">
                     Project Name
@@ -102,6 +118,58 @@ function PrivateSpace() {
                 </div>
                 <Button type="submit" className="w-full" disabled={!projectName.trim()}>
                   Create Project
+                </Button>
+              </form>
+            </div>
+
+            {/* Create Task Form */}
+            <div className="bg-card border rounded-lg p-6 shadow-sm">
+              <h2 className="text-xl font-semibold text-card-foreground mb-4">Create New Task</h2>
+              <form onSubmit={handleTaskSubmit} className="space-y-4">
+                <div className="space-y-2">
+                  <label htmlFor="task-name" className="text-sm font-medium text-card-foreground">
+                    Task Name
+                  </label>
+                  <input
+                    id="task-name"
+                    type="text"
+                    value={taskName}
+                    onChange={(e) => setTaskName(e.target.value)}
+                    placeholder="Enter task name..."
+                    className="w-full px-3 py-2 border border-input bg-background rounded-md text-sm transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent"
+                    required
+                  />
+                </div>
+                <div className="space-y-2">
+                  <label htmlFor="task-description" className="text-sm font-medium text-card-foreground">
+                    Task Description
+                  </label>
+                  <input
+                    id="task-description"
+                    type="text"
+                    value={taskDescription}
+                    onChange={(e) => setTaskDescription(e.target.value)}
+                    placeholder="Enter task description..."
+                    className="w-full px-3 py-2 border border-input bg-background rounded-md text-sm transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent"
+                  />
+                </div>
+                <div className="space-y-2">
+                  <label htmlFor="task-status" className="text-sm font-medium text-card-foreground">
+                    Task Status
+                  </label>
+                  <div className="flex items-center space-x-2">
+                    <input
+                      id="task-status"
+                      type="checkbox"
+                      checked={taskStatus}
+                      onChange={(e) => setTaskStatus(e.target.checked)}
+                      className="h-4 w-4 text-primary focus:ring-primary border-gray-300 rounded"
+                    />
+                    <span className="text-sm text-muted-foreground">Mark as completed</span>
+                  </div>
+                </div>
+                <Button type="submit" className="w-full" disabled={!taskName.trim()}>
+                  Create Task
                 </Button>
               </form>
             </div>
@@ -182,6 +250,89 @@ function PrivateSpace() {
                   </div>
                   <p className="text-muted-foreground">No projects created yet</p>
                   <p className="text-sm text-muted-foreground mt-1">Create your first project using the form</p>
+                </div>
+              )}
+            </div>
+
+            {/* Tasks List */}
+            <div className="bg-card border rounded-lg p-6 shadow-sm">
+              <h2 className="text-xl font-semibold text-card-foreground mb-4">Your Tasks ({tasks?.length || 0})</h2>
+
+              {tasks && tasks.length > 0 ? (
+                <div className="space-y-4">
+                  {tasks.map((task) => (
+                    <div key={task.id} className="border border-border rounded-lg p-4 bg-background">
+                      <div className="flex items-center justify-between mb-3">
+                        <h3 className="font-medium text-foreground">{task.name}</h3>
+                        <span
+                          className={`px-2 py-1 rounded-full text-xs font-medium ${
+                            task.status ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'
+                          }`}
+                        >
+                          {task.status ? 'Completed' : 'Pending'}
+                        </span>
+                      </div>
+
+                      <div className="flex items-center justify-between mb-3">
+                        <p className="text-xs text-muted-foreground">ID: {task.id}</p>
+                      </div>
+
+                      <div className="flex items-center justify-between mb-3">
+                        <p className="text-sm text-muted-foreground">{task.description}</p>
+                      </div>
+
+                      <div className="space-y-3">
+                        <div className="space-y-2">
+                          <label htmlFor="space" className="text-xs font-medium text-muted-foreground">
+                            Select Public Space to Publish
+                          </label>
+                          <select
+                            name="space"
+                            value={selectedSpace}
+                            onChange={(e) => setSelectedSpace(e.target.value)}
+                            className="w-full px-3 py-2 border border-input bg-background rounded-md text-sm transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent"
+                          >
+                            <option value="">Choose a public space...</option>
+                            {publicSpaces?.map((space) => (
+                              <option key={space.id} value={space.id}>
+                                {space.name}
+                              </option>
+                            ))}
+                          </select>
+                        </div>
+
+                        <Button
+                          onClick={() => publishToPublicSpace({ entity: task, spaceId: selectedSpace })}
+                          disabled={!selectedSpace || isPending}
+                          variant="outline"
+                          size="sm"
+                          className="w-full"
+                        >
+                          Publish to Public Space
+                        </Button>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <div className="text-center py-8">
+                  <div className="text-muted-foreground mb-2">
+                    <svg
+                      className="mx-auto h-12 w-12 mb-4 opacity-50"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"
+                      />
+                    </svg>
+                  </div>
+                  <p className="text-muted-foreground">No tasks created yet</p>
+                  <p className="text-sm text-muted-foreground mt-1">Create your first task using the form</p>
                 </div>
               )}
             </div>

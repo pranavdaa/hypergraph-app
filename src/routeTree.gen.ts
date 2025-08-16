@@ -16,6 +16,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as ExplorePublicKnowledgeIndexRouteImport } from './routes/explore-public-knowledge/index'
 import { Route as PublicSpaceSpaceIdRouteImport } from './routes/public-space/$space-id'
 import { Route as PrivateSpaceSpaceIdRouteImport } from './routes/private-space/$space-id'
+import { Route as ExplorePublicKnowledgeTasksRouteImport } from './routes/explore-public-knowledge/tasks'
 import { Route as ExplorePublicKnowledgeProjectsRouteImport } from './routes/explore-public-knowledge/projects'
 import { Route as ExplorePublicKnowledgeInvestmentRoundsRouteImport } from './routes/explore-public-knowledge/investment-rounds'
 import { Route as ExplorePublicKnowledgeDappsRouteImport } from './routes/explore-public-knowledge/dapps'
@@ -57,6 +58,12 @@ const PrivateSpaceSpaceIdRoute = PrivateSpaceSpaceIdRouteImport.update({
   path: '/private-space/$space-id',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ExplorePublicKnowledgeTasksRoute =
+  ExplorePublicKnowledgeTasksRouteImport.update({
+    id: '/tasks',
+    path: '/tasks',
+    getParentRoute: () => ExplorePublicKnowledgeRoute,
+  } as any)
 const ExplorePublicKnowledgeProjectsRoute =
   ExplorePublicKnowledgeProjectsRouteImport.update({
     id: '/projects',
@@ -91,6 +98,7 @@ export interface FileRoutesByFullPath {
   '/explore-public-knowledge/dapps': typeof ExplorePublicKnowledgeDappsRoute
   '/explore-public-knowledge/investment-rounds': typeof ExplorePublicKnowledgeInvestmentRoundsRoute
   '/explore-public-knowledge/projects': typeof ExplorePublicKnowledgeProjectsRoute
+  '/explore-public-knowledge/tasks': typeof ExplorePublicKnowledgeTasksRoute
   '/private-space/$space-id': typeof PrivateSpaceSpaceIdRoute
   '/public-space/$space-id': typeof PublicSpaceSpaceIdRoute
   '/explore-public-knowledge/': typeof ExplorePublicKnowledgeIndexRoute
@@ -103,6 +111,7 @@ export interface FileRoutesByTo {
   '/explore-public-knowledge/dapps': typeof ExplorePublicKnowledgeDappsRoute
   '/explore-public-knowledge/investment-rounds': typeof ExplorePublicKnowledgeInvestmentRoundsRoute
   '/explore-public-knowledge/projects': typeof ExplorePublicKnowledgeProjectsRoute
+  '/explore-public-knowledge/tasks': typeof ExplorePublicKnowledgeTasksRoute
   '/private-space/$space-id': typeof PrivateSpaceSpaceIdRoute
   '/public-space/$space-id': typeof PublicSpaceSpaceIdRoute
   '/explore-public-knowledge': typeof ExplorePublicKnowledgeIndexRoute
@@ -117,6 +126,7 @@ export interface FileRoutesById {
   '/explore-public-knowledge/dapps': typeof ExplorePublicKnowledgeDappsRoute
   '/explore-public-knowledge/investment-rounds': typeof ExplorePublicKnowledgeInvestmentRoundsRoute
   '/explore-public-knowledge/projects': typeof ExplorePublicKnowledgeProjectsRoute
+  '/explore-public-knowledge/tasks': typeof ExplorePublicKnowledgeTasksRoute
   '/private-space/$space-id': typeof PrivateSpaceSpaceIdRoute
   '/public-space/$space-id': typeof PublicSpaceSpaceIdRoute
   '/explore-public-knowledge/': typeof ExplorePublicKnowledgeIndexRoute
@@ -132,6 +142,7 @@ export interface FileRouteTypes {
     | '/explore-public-knowledge/dapps'
     | '/explore-public-knowledge/investment-rounds'
     | '/explore-public-knowledge/projects'
+    | '/explore-public-knowledge/tasks'
     | '/private-space/$space-id'
     | '/public-space/$space-id'
     | '/explore-public-knowledge/'
@@ -144,6 +155,7 @@ export interface FileRouteTypes {
     | '/explore-public-knowledge/dapps'
     | '/explore-public-knowledge/investment-rounds'
     | '/explore-public-knowledge/projects'
+    | '/explore-public-knowledge/tasks'
     | '/private-space/$space-id'
     | '/public-space/$space-id'
     | '/explore-public-knowledge'
@@ -157,6 +169,7 @@ export interface FileRouteTypes {
     | '/explore-public-knowledge/dapps'
     | '/explore-public-knowledge/investment-rounds'
     | '/explore-public-knowledge/projects'
+    | '/explore-public-knowledge/tasks'
     | '/private-space/$space-id'
     | '/public-space/$space-id'
     | '/explore-public-knowledge/'
@@ -222,6 +235,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PrivateSpaceSpaceIdRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/explore-public-knowledge/tasks': {
+      id: '/explore-public-knowledge/tasks'
+      path: '/tasks'
+      fullPath: '/explore-public-knowledge/tasks'
+      preLoaderRoute: typeof ExplorePublicKnowledgeTasksRouteImport
+      parentRoute: typeof ExplorePublicKnowledgeRoute
+    }
     '/explore-public-knowledge/projects': {
       id: '/explore-public-knowledge/projects'
       path: '/projects'
@@ -258,6 +278,7 @@ interface ExplorePublicKnowledgeRouteChildren {
   ExplorePublicKnowledgeDappsRoute: typeof ExplorePublicKnowledgeDappsRoute
   ExplorePublicKnowledgeInvestmentRoundsRoute: typeof ExplorePublicKnowledgeInvestmentRoundsRoute
   ExplorePublicKnowledgeProjectsRoute: typeof ExplorePublicKnowledgeProjectsRoute
+  ExplorePublicKnowledgeTasksRoute: typeof ExplorePublicKnowledgeTasksRoute
   ExplorePublicKnowledgeIndexRoute: typeof ExplorePublicKnowledgeIndexRoute
 }
 
@@ -268,6 +289,7 @@ const ExplorePublicKnowledgeRouteChildren: ExplorePublicKnowledgeRouteChildren =
     ExplorePublicKnowledgeInvestmentRoundsRoute:
       ExplorePublicKnowledgeInvestmentRoundsRoute,
     ExplorePublicKnowledgeProjectsRoute: ExplorePublicKnowledgeProjectsRoute,
+    ExplorePublicKnowledgeTasksRoute: ExplorePublicKnowledgeTasksRoute,
     ExplorePublicKnowledgeIndexRoute: ExplorePublicKnowledgeIndexRoute,
   }
 

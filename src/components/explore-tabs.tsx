@@ -11,6 +11,7 @@ const tabs: Tab[] = [
   { label: 'dApps', to: '/explore-public-knowledge/dapps' },
   { label: 'Investment Rounds', to: '/explore-public-knowledge/investment-rounds' },
   { label: 'Assets', to: '/explore-public-knowledge/assets' },
+  { label: 'Tasks', to: '/explore-public-knowledge/tasks' },
 ];
 
 export function ExploreTabs() {
