@@ -46,3 +46,11 @@ export class Task extends Entity.Class<Task>('Task')({
   name: Type.String,
   status: Type.Boolean
 }) {}
+
+export class Period extends Entity.Class<Period>('Period')({
+  startDate: Type.Date,
+  endDate: Type.Date,
+  month: Type.String,
+  person: Type.String,
+  notes: Type.String
+}) {}

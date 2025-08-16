@@ -71,4 +71,14 @@ export const mapping: Mapping = {
       status: Id("5136c360-5188-4e1b-ba6c-6bc7e343200d")
     },
   },
+  Period: {
+    typeIds: [Id("c7756aa5-d121-4667-bc53-bea59e41bf57")],
+    properties: {
+      startDate: Id("3af1fa90-d86c-4f02-8fec-6e66bb2b87c5"),
+      endDate: Id("93e093fe-a084-468f-86f5-94ae37e2c6f8"),
+      month: Id("74466375-069d-43a8-a037-fffcaf38728c"),
+      person: Id("6fbb4218-d5e5-4c9b-b0a6-fa816c5dcf6e"),
+      notes: Id("2fefd42a-d4d3-4503-b6d0-a617bba01d58")
+    },
+  },
 }
