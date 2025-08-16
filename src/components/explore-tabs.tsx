@@ -6,14 +6,7 @@ type Tab = {
   to: string;
 };
 
-const tabs: Tab[] = [
-  { label: 'Projects', to: '/explore-public-knowledge/projects' },
-  { label: 'dApps', to: '/explore-public-knowledge/dapps' },
-  { label: 'Investment Rounds', to: '/explore-public-knowledge/investment-rounds' },
-  { label: 'Assets', to: '/explore-public-knowledge/assets' },
-  { label: 'Tasks', to: '/explore-public-knowledge/tasks' },
-  { label: 'Periods', to: '/explore-public-knowledge/periods' },
-];
+const tabs: Tab[] = [{ label: 'Periods', to: '/explore-public-knowledge/periods' }];
 
 export function ExploreTabs() {
   return (

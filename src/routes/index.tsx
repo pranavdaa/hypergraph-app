@@ -1,6 +1,6 @@
 import { Button } from '@/components/ui/button';
 import { useHypergraphApp } from '@graphprotocol/hypergraph-react';
-import { Link, createFileRoute } from '@tanstack/react-router';
+import { createFileRoute } from '@tanstack/react-router';
 
 export const Route = createFileRoute('/')({
   component: Index,
@@ -23,45 +23,19 @@ function Index() {
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="text-center mb-12">
-        <img src="/hypergraph.svg" alt="Hypergraph Logo" className="w-24 h-24 mx-auto mb-4" />
-        <h1 className="text-4xl font-bold mb-4 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-          Welcome to Hypergraph
+        <div className="w-24 h-24 bg-pink-500 rounded-full flex items-center justify-center mx-auto mb-4">
+          <svg className="w-12 h-12 text-white" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.94-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z" />
+          </svg>
+        </div>
+        <h1 className="text-4xl font-bold mb-4 bg-gradient-to-r from-pink-600 to-purple-600 bg-clip-text text-transparent">
+          Care
         </h1>
-        <p className="text-lg text-muted-foreground">Your web3 app template powered by Hypergraph</p>
+        <p className="text-lg text-muted-foreground">Track your time, care for your data</p>
       </div>
 
-      <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-        {/* Section 1: Explore existing public knowledge */}
-        <div className="bg-white dark:bg-gray-800 rounded-lg p-6 shadow-lg border border-gray-200 dark:border-gray-700">
-          <div className="text-center">
-            <div className="w-12 h-12 bg-gray-100 dark:bg-gray-800 rounded-lg flex items-center justify-center mx-auto mb-4">
-              <svg
-                className="w-6 h-6 text-gray-400 dark:text-gray-300"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-                />
-              </svg>
-            </div>
-            <h3 className="text-xl font-semibold mb-3">Explore Public Knowledge</h3>
-            <p className="text-gray-600 dark:text-gray-300 mb-4">
-              Discover and explore the vast network of knowledge already available in the public Knowledge Graph.
-            </p>
-            <Link to="/explore-public-knowledge/projects">
-              <Button variant="outline" className="w-full">
-                Start Exploring
-              </Button>
-            </Link>
-          </div>
-        </div>
-
-        {/* Section 2: Sign in with Geo Connect */}
+      <div className="grid md:grid-cols-1 gap-8 max-w-2xl mx-auto">
+        {/* Section: Sign in with Geo Connect */}
         <div className="bg-white dark:bg-gray-800 rounded-lg p-6 shadow-lg border border-gray-200 dark:border-gray-700">
           <div className="text-center">
             <div className="w-12 h-12 bg-gray-100 dark:bg-gray-800 rounded-lg flex items-center justify-center mx-auto mb-4">
@@ -79,49 +53,13 @@ function Index() {
                 />
               </svg>
             </div>
-            <h3 className="text-xl font-semibold mb-3">Manage Your Data</h3>
+            <h3 className="text-xl font-semibold mb-3">Create Info</h3>
             <p className="text-gray-600 dark:text-gray-300 mb-4">
-              Sign in with Geo Connect to manage your private data and publish it to the public Knowledge Graph.
+              Create private space to share period data manage your private data.
             </p>
             <Button onClick={handleSignIn} className="w-full bg-primary hover:bg-primary/90">
-              Sign in with Geo Connect
+              Create a Space
             </Button>
-          </div>
-        </div>
-
-        {/* Section 3: Explore the docs */}
-        <div className="bg-white dark:bg-gray-800 rounded-lg p-6 shadow-lg border border-gray-200 dark:border-gray-700">
-          <div className="text-center">
-            <div className="w-12 h-12 bg-gray-100 dark:bg-gray-800 rounded-lg flex items-center justify-center mx-auto mb-4">
-              <svg
-                className="w-6 h-6 text-gray-400 dark:text-gray-300"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
-                />
-              </svg>
-            </div>
-            <h3 className="text-xl font-semibold mb-3">Explore the Docs</h3>
-            <p className="text-gray-600 dark:text-gray-300 mb-4">
-              Learn how to build with Hypergraph and discover all the features available in our comprehensive
-              documentation.
-            </p>
-            <a
-              href="https://docs.hypergraph.thegraph.com/docs/quickstart"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-block w-full"
-            >
-              <Button variant="outline" className="w-full">
-                Read Documentation
-              </Button>
-            </a>
           </div>
         </div>
       </div>
