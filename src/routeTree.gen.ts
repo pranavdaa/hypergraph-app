@@ -18,6 +18,7 @@ import { Route as PublicSpaceSpaceIdRouteImport } from './routes/public-space/$s
 import { Route as PrivateSpaceSpaceIdRouteImport } from './routes/private-space/$space-id'
 import { Route as ExplorePublicKnowledgeTasksRouteImport } from './routes/explore-public-knowledge/tasks'
 import { Route as ExplorePublicKnowledgeProjectsRouteImport } from './routes/explore-public-knowledge/projects'
+import { Route as ExplorePublicKnowledgePeriodsRouteImport } from './routes/explore-public-knowledge/periods'
 import { Route as ExplorePublicKnowledgeInvestmentRoundsRouteImport } from './routes/explore-public-knowledge/investment-rounds'
 import { Route as ExplorePublicKnowledgeDappsRouteImport } from './routes/explore-public-knowledge/dapps'
 import { Route as ExplorePublicKnowledgeAssetsRouteImport } from './routes/explore-public-knowledge/assets'
@@ -70,6 +71,12 @@ const ExplorePublicKnowledgeProjectsRoute =
     path: '/projects',
     getParentRoute: () => ExplorePublicKnowledgeRoute,
   } as any)
+const ExplorePublicKnowledgePeriodsRoute =
+  ExplorePublicKnowledgePeriodsRouteImport.update({
+    id: '/periods',
+    path: '/periods',
+    getParentRoute: () => ExplorePublicKnowledgeRoute,
+  } as any)
 const ExplorePublicKnowledgeInvestmentRoundsRoute =
   ExplorePublicKnowledgeInvestmentRoundsRouteImport.update({
     id: '/investment-rounds',
@@ -97,6 +104,7 @@ export interface FileRoutesByFullPath {
   '/explore-public-knowledge/assets': typeof ExplorePublicKnowledgeAssetsRoute
   '/explore-public-knowledge/dapps': typeof ExplorePublicKnowledgeDappsRoute
   '/explore-public-knowledge/investment-rounds': typeof ExplorePublicKnowledgeInvestmentRoundsRoute
+  '/explore-public-knowledge/periods': typeof ExplorePublicKnowledgePeriodsRoute
   '/explore-public-knowledge/projects': typeof ExplorePublicKnowledgeProjectsRoute
   '/explore-public-knowledge/tasks': typeof ExplorePublicKnowledgeTasksRoute
   '/private-space/$space-id': typeof PrivateSpaceSpaceIdRoute
@@ -110,6 +118,7 @@ export interface FileRoutesByTo {
   '/explore-public-knowledge/assets': typeof ExplorePublicKnowledgeAssetsRoute
   '/explore-public-knowledge/dapps': typeof ExplorePublicKnowledgeDappsRoute
   '/explore-public-knowledge/investment-rounds': typeof ExplorePublicKnowledgeInvestmentRoundsRoute
+  '/explore-public-knowledge/periods': typeof ExplorePublicKnowledgePeriodsRoute
   '/explore-public-knowledge/projects': typeof ExplorePublicKnowledgeProjectsRoute
   '/explore-public-knowledge/tasks': typeof ExplorePublicKnowledgeTasksRoute
   '/private-space/$space-id': typeof PrivateSpaceSpaceIdRoute
@@ -125,6 +134,7 @@ export interface FileRoutesById {
   '/explore-public-knowledge/assets': typeof ExplorePublicKnowledgeAssetsRoute
   '/explore-public-knowledge/dapps': typeof ExplorePublicKnowledgeDappsRoute
   '/explore-public-knowledge/investment-rounds': typeof ExplorePublicKnowledgeInvestmentRoundsRoute
+  '/explore-public-knowledge/periods': typeof ExplorePublicKnowledgePeriodsRoute
   '/explore-public-knowledge/projects': typeof ExplorePublicKnowledgeProjectsRoute
   '/explore-public-knowledge/tasks': typeof ExplorePublicKnowledgeTasksRoute
   '/private-space/$space-id': typeof PrivateSpaceSpaceIdRoute
@@ -141,6 +151,7 @@ export interface FileRouteTypes {
     | '/explore-public-knowledge/assets'
     | '/explore-public-knowledge/dapps'
     | '/explore-public-knowledge/investment-rounds'
+    | '/explore-public-knowledge/periods'
     | '/explore-public-knowledge/projects'
     | '/explore-public-knowledge/tasks'
     | '/private-space/$space-id'
@@ -154,6 +165,7 @@ export interface FileRouteTypes {
     | '/explore-public-knowledge/assets'
     | '/explore-public-knowledge/dapps'
     | '/explore-public-knowledge/investment-rounds'
+    | '/explore-public-knowledge/periods'
     | '/explore-public-knowledge/projects'
     | '/explore-public-knowledge/tasks'
     | '/private-space/$space-id'
@@ -168,6 +180,7 @@ export interface FileRouteTypes {
     | '/explore-public-knowledge/assets'
     | '/explore-public-knowledge/dapps'
     | '/explore-public-knowledge/investment-rounds'
+    | '/explore-public-knowledge/periods'
     | '/explore-public-knowledge/projects'
     | '/explore-public-knowledge/tasks'
     | '/private-space/$space-id'
@@ -249,6 +262,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ExplorePublicKnowledgeProjectsRouteImport
       parentRoute: typeof ExplorePublicKnowledgeRoute
     }
+    '/explore-public-knowledge/periods': {
+      id: '/explore-public-knowledge/periods'
+      path: '/periods'
+      fullPath: '/explore-public-knowledge/periods'
+      preLoaderRoute: typeof ExplorePublicKnowledgePeriodsRouteImport
+      parentRoute: typeof ExplorePublicKnowledgeRoute
+    }
     '/explore-public-knowledge/investment-rounds': {
       id: '/explore-public-knowledge/investment-rounds'
       path: '/investment-rounds'
@@ -277,6 +297,7 @@ interface ExplorePublicKnowledgeRouteChildren {
   ExplorePublicKnowledgeAssetsRoute: typeof ExplorePublicKnowledgeAssetsRoute
   ExplorePublicKnowledgeDappsRoute: typeof ExplorePublicKnowledgeDappsRoute
   ExplorePublicKnowledgeInvestmentRoundsRoute: typeof ExplorePublicKnowledgeInvestmentRoundsRoute
+  ExplorePublicKnowledgePeriodsRoute: typeof ExplorePublicKnowledgePeriodsRoute
   ExplorePublicKnowledgeProjectsRoute: typeof ExplorePublicKnowledgeProjectsRoute
   ExplorePublicKnowledgeTasksRoute: typeof ExplorePublicKnowledgeTasksRoute
   ExplorePublicKnowledgeIndexRoute: typeof ExplorePublicKnowledgeIndexRoute
@@ -288,6 +309,7 @@ const ExplorePublicKnowledgeRouteChildren: ExplorePublicKnowledgeRouteChildren =
     ExplorePublicKnowledgeDappsRoute: ExplorePublicKnowledgeDappsRoute,
     ExplorePublicKnowledgeInvestmentRoundsRoute:
       ExplorePublicKnowledgeInvestmentRoundsRoute,
+    ExplorePublicKnowledgePeriodsRoute: ExplorePublicKnowledgePeriodsRoute,
     ExplorePublicKnowledgeProjectsRoute: ExplorePublicKnowledgeProjectsRoute,
     ExplorePublicKnowledgeTasksRoute: ExplorePublicKnowledgeTasksRoute,
     ExplorePublicKnowledgeIndexRoute: ExplorePublicKnowledgeIndexRoute,
